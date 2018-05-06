@@ -1,41 +1,44 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {AddBlogAction, FetchBlogAction} from '../../Actions/BlogActions';
+import {EditBlogAction, FetchBlogAction} from '../../Actions/BlogActions';
 
-class CreateBlog extends Component{
+class EditBlog extends Component{
     state={
         title:'',
         blog:''
+    }
+    componentDidMount(){
+        this.setState({title:this.props.title});
+        this.setState({blog:this.props.blog})
     }
     handleInput=(event)=>{
         const {name, value} = event.target
         this.setState({[name]: value});
     }
 
-    handleAddBlog=(event)=>{
+    handleUpdateBlog=(event)=>{
         event.preventDefault();
         const {title, blog} = this.state
-        this.props.AddBlogAction({title, blog})
+        this.props.EditBlogAction({title, blog})
         .then(this.props.FetchBlogAction)
     }
     render(){
         const {title, blog} = this.state
         return(
             <div>
-        <button type="button" className="btn btn-primary addbtn" data-toggle="modal" data-target="#exampleModal">
-        <i className="fa fa-plus-circle"/> Create a blog
-        </button>
-        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
+        <div className="modal fade" id={`edit_blog${this.props.id}`} 
+            tabIndex="-1" role="dialog" 
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
             <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Add a blog post</h5>
+                <h5 className="modal-title" id="exampleModalLabel">Edit a blog post</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div className="modal-body">
-            <form onSubmit={this.handleAddBlog}>
+            <form onSubmit={this.handleUpdateBlog}>
                 <div className="form-group">
             <label htmlFor="formGroupExampleInput">Enter Title</label>
             <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Life challenges"
@@ -48,7 +51,7 @@ class CreateBlog extends Component{
         </div>
         <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-dismiss="modal" id="CloseAddModal">Close</button>
-        <button type="submit" className="btn btn-success">Publish Blog</button>
+        <button type="submit" className="btn btn-success">Update blog</button>
       </div>
         </form>
       </div>
@@ -60,4 +63,4 @@ class CreateBlog extends Component{
         )
     }
 }
-export default connect (null, {AddBlogAction, FetchBlogAction})(CreateBlog);
+export default connect (null, {EditBlogAction, FetchBlogAction})(EditBlog);

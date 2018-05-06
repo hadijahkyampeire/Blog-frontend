@@ -43,7 +43,38 @@ export const FetchBlogAction=()=>{
     return async (dispatch)=>{
         await Axiosinstance.get(`${BASE_URL}/blogs`)
         .then(response=>{
+            console.log(response)
             dispatch(Getblogs(response));
+        }).catch(error=>{
+            notify.show('error occured', 'error', 3000)
+        });
+    }
+}
+
+// Update action
+export const EditBlogAction=(id, data)=>{
+    return async (dispatch)=>{
+        await Axiosinstance.put(`${BASE_URL}/blogs/${id}`, data)
+        .then(response=>{
+            document.getElementById(`closeEditModal${id}`).click();
+            dispatch(Getblogs(response));
+            notify.show(response.data.message, 'success', 3000)
+        }).catch(error=>{
+            notify.show('error occured', 'error', 3000)
+        });
+
+    }
+
+}
+
+// delete action
+export const DeleteBlogAction=(id)=>{
+    return async (dispatch)=>{
+        await Axiosinstance.delete(`${BASE_URL}/blogs/${id}`)
+        .then(response=>{
+            document.getElementById(`closeDeleteModal${id}`).click();
+            dispatch(Getblogs(response));
+            notify.show(response.data.message, 'success', 3000)
         }).catch(error=>{
             notify.show('error occured', 'error', 3000)
         });

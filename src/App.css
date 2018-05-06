@@ -66,3 +66,8 @@
 .modal-content{
   background-color: rgba(176, 220, 240, 0.71);
 }
+.blogcard{
+  width: 600px;
+  margin-left: 10px;
+  margin: 20px;
+}
