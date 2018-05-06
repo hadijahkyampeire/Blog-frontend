@@ -4,6 +4,7 @@ import { notify } from 'react-notify-toast';
 const BASE_URL='http://localhost:5000/api/v1/blog'
 const ADDBLOG = 'addblog'
 export const GETBLOGS = 'getblogs'
+export const PUBLICBLOGS='getpublicblogs'
 
 // Action creators
 const AddBlog=(response)=>{
@@ -16,6 +17,13 @@ const AddBlog=(response)=>{
 export const Getblogs=(response)=>{
     return{
         'type':GETBLOGS,
+        'payload':response.data
+    }
+}
+
+export const GetPublicBlogs=(response)=>{
+    return{
+        'type':PUBLICBLOGS,
         'payload':response.data
     }
 }
@@ -51,6 +59,18 @@ export const FetchBlogAction=()=>{
     }
 }
 
+// fetch published blogs
+export const FetchPublishedBlogAction=()=>{
+    return async (dispatch)=>{
+        await Axiosinstance.get(`${BASE_URL}/blogs/public`)
+        .then(response=>{
+            console.log(response)
+            dispatch(GetPublicBlogs(response));
+        }).catch(error=>{
+            notify.show('error occured', 'error', 3000)
+        });
+    }
+}
 // Update action
 export const EditBlogAction=(id, data)=>{
     return async (dispatch)=>{

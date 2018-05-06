@@ -6,6 +6,12 @@ const Navbar =()=>(
     <div className="logo"></div>
     Blog site
   </a>
+  <li className="nav-item">
+        <a className="nav-link" href="/publicblogs">Published Blogs</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="/"><i className="fa fa-sign-out"/>Logout</a>
+      </li>
 </nav>
 )
 export default Navbar;

@@ -55,7 +55,7 @@ class Register extends Component{
          name="password" value={password} onChange={this.handleInput}/>
         </div>
         <div>
-        <button type="submit" className="btn btn-success">Create Account</button>
+        <button type="submit" className="btn btn-success loginbtn">Create Account</button>
         </div>
         </form>
         <span className="words">Already have an account?</span>
